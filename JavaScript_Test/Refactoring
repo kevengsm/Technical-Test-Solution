@@ -1,0 +1,20 @@
+// removed 'req' argument, it was not being used (?)
+// removed the useless comment
+// catch should only catch specific exceptions (probably HTTP-related), not all exceptions.
+// don't await two functions. Pass a function by argument instead. Iterate over a collection of functions outside when calling 'check'
+// Another option is creating two separate methods, each methods for each res.send0(...);
+// Also, the following method example makes the funtion check reusable and dynamic.
+
+async function check(func, res) {
+    try {
+        const x = await func();
+        res.send("request sent successfully");
+    } catch HTTPTimeOut, HTTPFailure (error) {
+        res.send(error.stack);
+    }
+}
+
+let res = ...//?
+let funcs = [sendFirstHttpRequest, sendSecondHttpRequest]
+for func in funcs:
+    await check(func, res);
